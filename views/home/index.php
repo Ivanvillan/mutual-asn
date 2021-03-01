@@ -7,6 +7,9 @@
     <title>Mutual ASN | Inicio</title>
 </head>
 <body>
-    <h1>Iniciaste sesión</h1>
+    <?php include('../header/header.php') ?>
+    <div class="container">
+        <p>Sesion</p>
+    </div>
 </body>
 </html>

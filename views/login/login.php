@@ -1,3 +1,10 @@
+<?php
+session_start();
+if(!empty($_SESSION['ID'])){
+header('Location: ../home/index.php');
+};
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -103,7 +110,7 @@
                 error: function(){
                     $('.login').removeClass('hide');
                     $('.preloader-wrapper').addClass('hide');
-                    M.toast({html: 'Error al iniciar sesion'});
+                    M.toast({html: 'Error al iniciar sesion, compruebe los datos ingresados'});
                 }
             });
         });
