@@ -1,3 +1,14 @@
+<?php 
+session_start();
+if (isset($_SESSION['ID'])) {
+    $userid = $_SESSION['ID'];
+    $username = $_SESSION['USERNAME']; 
+  }else{
+    header("Location: ../login/login.php");
+    die();
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,39 +23,62 @@
             margin-left: 20px !important;
         }
         nav, header, main, footer {
-            padding-left: 300px;
+            padding-left: 300px !important;
+        }
+        /* .sidenav-left {
+            width: 275px !important
+        } */
+        .session-name-padding {
+            padding-left: 5px !important;
+            margin-right: 10px;
+        }
+        .color-links {
+            color: #000000;
         }
         .container{
-            margin-left: 350px;
+            margin-left: 315px;
         }
         @media only screen and (max-width : 992px) {
             nav, header, main, footer {
                 padding-left: 0;
                 padding-right: 0;
             }
+            .container{
+            margin-left: 15px;
+            }
         }
     </style>
 </head>
 <body>
-    <ul id="slide-out" class="sidenav sidenav-fixed sidenav-left">
+    <ul id="slide-out" class="sidenav light-blue darken-4 sidenav-fixed sidenav-left">
         <div class="center-align">
         <img class="responsive-img" src="../../assets/logo-mutual.png" width="150" height="150">
         </div>
-        <div class="divider"></div>
-        <li><a href="#!">First Sidebar Link</a></li>
-        <li><a href="#!">Second Sidebar Link</a></li>
+        <div class="divider black"></div>
+        <li><a href="index.php" class="white-text">Gráficos</a></li>
+        <li><a href="clients.php" class="white-text">Clientes</a></li>
+        <li><a href="seller.php" class="white-text">Vendedores</a></li>
+        <li><a href="inputs.php" class="white-text">Ingresar planilla</a></li>
+        <li><a href="reports.php" class="white-text">Informes</a></li>
     </ul>
-    <ul class="sidenav" id="sidenav-mobile">
-        <li><a href="#">Username</a></li>
-        <li><a href="#"><i class="material-icons">exit_to_app</i></a></li>
+    <ul class="sidenav light-blue darken-4" id="sidenav-mobile">
+        <li><a href="index.php" class="white-text">Gráficos</a></li>
+        <li><a href="clients.php" class="white-text">Clientes</a></li>
+        <li><a href="seller.php" class="white-text">Vendedores</a></li>
+        <li><a href="inputs.php" class="white-text">Ingresar planilla</a></li>
+        <li><a href="reports.php" class="white-text">Informes</a></li>
+        <div class="divider"></div>
+        <li><a class="session-name white-text"></a></li>
+        <li><a href="!#" class="logout"><i class="material-icons white-text">exit_to_app</i></a></li>
     </ul>
     <div class="navbar-fixed">
-        <nav>
+        <nav class="light-blue darken-4">
             <div class="nav-wrapper">
                 <a href="#" data-target="sidenav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="#">Username</a></li>
-                    <li><a href="#"><i class="material-icons">exit_to_app</i></a></li>
+                    <li><i class="material-icons prefix ">person</i></li>
+                    <li><span class="session-name session-name-padding"></span></li>
+                    <li><a href="!#" class="logout"><i class="material-icons">exit_to_app</i></a></li>
                 </ul>
             </div>
         </nav>
@@ -55,8 +89,29 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
     <script>
+        let userid = <?php echo json_encode($userid) ?>;
+        let username = <?php echo json_encode($username) ?>;
         $('.sidenav').sidenav();
         $('#slide-out').sidenav({ edge: 'left' });
+        $('.session-name').html(username.toUpperCase());
+        $('.logout').click(function (e) { 
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "http://localhost/mutualasn-api/public/session/logout",
+                data: {
+                    id: userid
+                },
+                dataType: "json",
+                success: function (response) {
+                    M.toast({html: 'Sesión terminada'});
+                    window.location.href = "../login/login.php";
+                },
+                error: function(){
+                    M.toast({html: 'Error al terminar sesión'});
+                }
+            });
+        });
     </script>
 </body>
 </html>
