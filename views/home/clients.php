@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mutual ASN | Clientes</title>
 </head>
+<style>
+    .padding-td{
+        padding:0 !important;
+        border:0 !important;
+    }
+</style>
 <body>
     <?php include('../header/header.php') ?>
     <div class="container">
@@ -75,14 +81,52 @@
                     <td>${row[i].DNI}</td> 
                     <td>${row[i].CBU}</td> 
                     <td>${row[i].Denominacion}</td> 
-                    <td> <button class="btn right"><i class="material-icons">description</i></button></td> 
+                    <td> <button class="btn description right"><i class="material-icons">description</i></button></td> 
                     <td><button class="btn right"><i class="material-icons">assignment</i></button></td> 
                     <td><button class="btn right"><i class="material-icons">library_books</i></button></td> 
-                    </tr>`
+                    </tr>
+                    <tr class="child padding-td">
+                        <td parent="td" class="padding-td">
+                            <span>${row[i].Legajo}</span> 
+                            <span><br></span>
+                            <span>${row[i].ApellidoNombreC}</span> 
+                        </td>
+                        <td parent="td" class="padding-td">
+                            <span>${row[i].DNI}</span> 
+                            <span><br></span>
+                            <span>${row[i].CBU}</span> 
+                        </td>
+                        <td parent="td" class="padding-td">
+                            <span>${row[i].Denominacion}</span> 
+                            <span><br></span>
+                            <span>${row[i].Estado}</span> 
+                        </td>
+                        <td parent="td" class="padding-td">
+                            <span>${row[i].domicilio}</span> 
+                            <span><br></span>
+                            <span>${row[i].telefono}</span> 
+                        </td>
+                        <td parent="td" class="padding-td">
+                            <span>${row[i].ApellidoNombreV}</span> 
+                        </td>
+                    </tr>
+                    `
                     );
                 }    
                 $('table>tbody').html(html.join(''));
                 $('select').formSelect();
+                $(function() {
+                    $("td[parent=td]").find("span").hide();
+                    $(".description").click(function(event) {
+                        event.stopPropagation();
+                        var $target = $(event.target);
+                        if ( $target.closest("td").attr("parent") > 0 ) {
+                            $target.slideUp();
+                        } else {
+                            $target.closest("tr").next().find("span").slideToggle();
+                        }                    
+                    });
+                })
                 },
                 error: function(){
                     console.log('error');
