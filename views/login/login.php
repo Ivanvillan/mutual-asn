@@ -59,16 +59,16 @@ header('Location: ../home/index.php');
                         <div class="divider"></div>
                         <div class="input-field col s12 m12 l12 mt">
                             <i class="material-icons prefix">account_circle</i>
-                            <input type="text" class="activate" name="user">
-                            <label for="Nombre">Usuario</label>
+                            <input type="text" id="user" class="activate" name="user">
+                            <label for="user">Usuario</label>
                         </div>
                         <div class="input-field col s12 m12 l12">
                             <i class="material-icons prefix">lock</i>
-                            <input type="password" class="activate" name="password">
-                            <label for="Contraseña">Contraseña</label>
+                            <input type="password" id="password" class="activate" name="password">
+                            <label for="password">Contraseña</label>
                         </div>
                         <button class="waves-effect waves-yellow blue-grey lighten-5 black-text btn right login">INGRESAR</button>
-                        <div class="preloader-wrapper hide small active">
+                        <div class="preloader-wrapper hide small right active">
                             <div class="spinner-layer spinner-red-only">
                             <div class="circle-clipper left">
                                 <div class="circle"></div>

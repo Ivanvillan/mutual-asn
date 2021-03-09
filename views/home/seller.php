@@ -33,6 +33,27 @@
                 </table>
             </div>
         </div>
+        <div id="description-modal" class="modal">
+            <div class="modal-content">
+            <ul id="tabs-swipe" class="tabs">
+                <li class="tab col s12 m6 l6"><a href="#tab1" class="active">Test 1</a></li>
+                <li class="tab col s12 m6 l6"><a href="#tab2">Test 2</a></li>
+            </ul>
+            <div id="tab1" class="col s12 m4 l4 blue">Test 1</div>
+            <div id="tab2" class="col s12 m4 l4 red">Test 2</div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green">Agree</a>
+            </div>
+        </div>
+        <div id="movement-modal" class="modal">
+            <div class="modal-content">
+            <div class="col s12 m4 l4 red">Test 2</div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green">Agree</a>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -57,12 +78,14 @@
                     <td>${row[i].TelMovil}</td> 
                     <td>${row[i].Domicilio}</td> 
                     <td>${row[i].CorreoElectronico}</td> 
-                    <td> <button class="btn right"><i class="material-icons">description</i></button></td> 
-                    <td><button class="btn right"><i class="material-icons">assignment</i></button></td> 
+                    <td> <a href="#description-modal" class="btn description right modal-trigger"><i class="material-icons">description</i></a></td> 
+                    <td><a href="#movement-modal" class="btn right modal-trigger"><i class="material-icons">assignment</i></a></td>  
                     </tr>`
                     );
                 }    
                 $('table>tbody').html(html.join(''));
+                $('.modal').modal();
+                $('.tabs').tabs();
                 },
                 error: function(){
                     console.log('error');

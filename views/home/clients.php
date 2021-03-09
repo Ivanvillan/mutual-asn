@@ -5,13 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mutual ASN | Clientes</title>
+    <style>
+        .padding-description{
+            padding: 5px !important;
+        }
+        .margin-h5{
+            margin-bottom: 10px !important;
+            margin-left: 0px !important;
+            margin-right: 0px !important;
+            margin-top: 0px !important;
+        }
+        .margin-a{
+            margin-top: 3px !important;
+        }
+        .modal{ 
+            width: 75% !important; 
+        }
+    </style>
 </head>
-<style>
-    .padding-td{
-        padding:0 !important;
-        border:0 !important;
-    }
-</style>
 <body>
     <?php include('../header/header.php') ?>
     <div class="container">
@@ -39,7 +50,7 @@
                 </div>
             </div>
             <div class="col s12 m12 l12">
-                <table class="highlight responsive-table">
+                <table class="highlight responsive-table client-table">
                     <thead>
                         <tr>
                             <th>Legajo</th>
@@ -53,18 +64,214 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
                     </tbody>
                 </table>
             </div>
         </div>
+        <!-- MODAL CLIENTE: INFORMACION - EDICION -->
+        <div id="description-modal" class="modal">
+            <div class="modal-content">
+            <!-- INICIO FORMULARIO CLIENTE -->
+                <div class="row hide form-row">
+                    <a href="#" class="client-show col s1 m1 l1 margin-a"><i class="material-icons prefix" style="color: #000 !important;">arrow_back</i></a>
+                    <h5 class="col s10 m10 l10 margin-h5">EDITAR CLIENTE</h5>
+                    <a class="col s1 m1 l1 right modal-close margin-a"><i class="material-icons" style="color: #000 !important;">close</i></a>
+                    <div class="col s12 m12 l12 divider" style="margin-bottom: 20px !important;"></div>
+                    <form action="">
+                        <div class="input-field col s12 m6 l6">
+                            <input type="text" class="validate" name="nleg">
+                            <label for="legajo">LEGAJO</label>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                            <input type="text" class="validate" name="name">
+                            <label for="name">NOMBRE</label>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                            <input type="text" class="validate" name="dni">
+                            <label for="dni">DNI</label>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                            <input type="text" class="validate" name="cbu">
+                            <label for="cbu">CBU</label>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                            <input type="text" class="validate" name="tel">
+                            <label for="tel">TELÉFONO</label>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                            <input type="text" class="validate" name="address">
+                            <label for="address">DOMICILIO</label>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                            <input type="text" class="validate" name="denom">
+                            <label for="denom">DENOMINACIÓN</label>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                            <select name="" id="seller">
+                                <option value="" disabled selected>Vendedor</option>
+                            </select>
+                        </div>
+                        <div class="input-field col s12 m6 l6 center-align">
+                            <select name="" id="state">
+                                <option value="" disabled selected>Estado</option>
+                                <option value="1">Activo</option>
+                                <option value="2">Inactivo</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer col s12 m6 l6" style="padding-top: 20px !important;">
+                            <a href="#!" class="btn right">Aceptar</a>
+                        </div>
+                    </form>
+                </div>
+                <!-- FIN FORMULARIO CLIENTE -->
+
+                <!-- INFORMACION DEL CLIENTE -->
+                <div class="row span-row">
+                    <h5 class="col s11 m11 l11 margin-h5">INFORMACION DEL CLIENTE</h5>
+                    <a class="col s1 m1 l1 right modal-close margin-a"><i class="material-icons" style="color: #000 !important;">close</i></a>
+                    <div class="col s12 m12 l12 divider" style="margin-bottom: 10px !important;"></div>
+                    <div class="col s12 m6 l6 offset-m3 offset-l3 padding-description">
+                        <span><strong>LEGAJO: </strong></span>
+                        <span class="s-legajo"></span>
+                    </div>
+                    <div class="col s12 m6 l6 offset-m3 offset-l3 padding-description">
+                        <span><strong>NOMBRE: </strong></span>
+                        <span class="s-nombre"></span>
+                    </div>
+                    <div class="col s12 m6 l6 offset-m3 offset-l3 padding-description">
+                        <span><strong>DNI: </strong></span>
+                        <span class="s-dni"></span>
+                    </div>
+                    <div class="col s12 m6 l6 offset-m3 offset-l3 padding-description">
+                        <span><strong>CBU: </strong></span>
+                        <span class="s-cbu"></span>
+                    </div>
+                    <div class="col s12 m6 l6 offset-m3 offset-l3 padding-description">
+                        <span><strong>TELÉFONO: </strong></span>
+                        <span class="s-tel"></span>
+                    </div>
+                    <div class="col s12 m6 l6 offset-m3 offset-l3 padding-description">
+                        <span><strong>DOMICILIO: </strong></span>
+                        <span class="s-domicilio"></span>
+                    </div>
+                    <div class="col s12 m6 l6 offset-m3 offset-l3 padding-description ">
+                        <span><strong>DENOMINACIÓN: </strong></span>
+                        <span class="s-denominacion"></span>
+                    </div>
+                    <div class="col s12 m6 l6 offset-m3 offset-l3 padding-description">
+                        <span><strong>VENDEDOR: </strong></span>
+                        <span class="s-vendedor"></span>
+                    </div>
+                    <div class="col s12 m6 l6 offset-m3 offset-l3 padding-description">
+                        <span><strong>ESTADO: </strong></span>
+                        <span class="s-estado"></span>
+                    </div>
+                    <div class="modal-footer col s12 m6 l6 offset-m3 offset-l3">
+                        <a href="#!" class="btn client-edit">Editar</a>
+                    </div>
+                </div>
+                <!-- FIN INRMACION DEL CLIENTE -->
+            </div>
+        </div>
+        <!-- FIN MODAL INFORMACION - EDICION -->
+
+        <!-- MODAL MOVIMIENTOS -->
+        <div id="movement-modal" class="modal">
+            <div class="modal-content">
+                <div class="row">
+                    <h5 class="col s11 m11 l11 margin-h5">MOVIMIENTOS DEL CLIENTE</h5>
+                    <a class="col s1 m1 l1 right modal-close margin-a"><i class="material-icons" style="color: #000 !important;">close</i></a>
+                    <div class="col s12 m12 l12 divider" style="margin-bottom: 20px !important;"></div>
+                    <div class="col s12 m12 l12">
+                        <table class="highlight responsive-table client-movements">
+                            <thead>
+                                <tr>
+                                    <th>Periodo</th>
+                                    <th>Saldo</th>
+                                    <th>Importe</th>
+                                    <th>Cobrado</th>
+                                    <th>Cuotas</th>
+                                    <th>Cuot/Pend.</th>
+                                    <th>Conv/Cobro</th>
+                                    <th>Suc.</th>
+                                    <th>Prod.</th>
+                                    <th>Rech.</th>
+                                    <th>Tipo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIN MODAL MOVIMIENTOS -->
+
+        <!-- MODAL OBSERVACIONES -->
+        <div id="observation-modal" class="modal">
+            <div class="modal-content">
+                <div class="row form-obs hide">
+                    <form action="">
+                        <a href="#" class="obs-show col s1 m1 l1 margin-a"><i class="material-icons prefix" style="color: #000 !important;">arrow_back</i></a>
+                        <h5 class="col s11 m11 l11 margin-h5">OBSERVACIÓN DEL CLIENTE</h5>
+                        <a class="col s1 m1 l1 right modal-close margin-a"><i class="material-icons" style="color: #000 !important;">close</i></a>
+                        <div class="col s12 m12 l12 divider" style="margin-bottom: 20px !important;"></div>
+                        <div class="col s12 m8 l8 offset-m2 offset-l2 input-field">
+                            <textarea name="observation" id="textareaObserv" class="materialize-textarea"></textarea>
+                            <label for="textareaObserv">Observación</label>
+                        </div>
+                        <div class="modal-footer col s12 m12 l12" style="padding-top: 30px !important;">
+                            <a href="#!" class="btn right newObs">Crear</a>
+                            <div class="preloader-wrapper hide small right active">
+                                <div class="spinner-layer spinner-red-only">
+                                <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                </div><div class="gap-patch">
+                                    <div class="circle"></div>
+                                </div><div class="circle-clipper right">
+                                    <div class="circle"></div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="row table-obs">
+                    <h5 class="col s11 m11 l11 margin-h5">OBSERVACIONES DEL CLIENTE</h5>
+                    <a class="col s1 m1 l1 right modal-close margin-a"><i class="material-icons" style="color: #000 !important;">close</i></a>
+                    <div class="col s12 m12 l12 divider" style="margin-bottom: 20px !important;"></div>
+                    <div class="col s12 m12 l12">
+                        <table class="highlight responsive-table client-obs">
+                            <thead>
+                                <tr>
+                                    <th>Observación</th>
+                                    <th>Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer right" style="padding-top: 20px !important;">
+                        <a href="#!" class="btn obs-new">Nueva</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIN MODAL OBSERVACIONES -->
     </div>
 
     <script>
+        // Variables
+         var paramObs;
+        // 
         $(document).ready(function () {
             getClients();
         });
+        // 
         function getClients(){
+            // 
             $.ajax({
                 type: "GET",
                 url: "http://localhost/mutualasn-api/public/customers/get/all/all/all",
@@ -75,64 +282,211 @@
                     let html = [];
                     for (let i=0; i < row.length; i++){
                     html.push(
-                    `<tr>
+                    `<tr clientID="${row[i].Legajo}">
                     <td>${row[i].Legajo}</td> 
                     <td>${row[i].ApellidoNombreC}</td> 
                     <td>${row[i].DNI}</td> 
                     <td>${row[i].CBU}</td> 
                     <td>${row[i].Denominacion}</td> 
-                    <td> <button class="btn description right"><i class="material-icons">description</i></button></td> 
-                    <td><button class="btn right"><i class="material-icons">assignment</i></button></td> 
-                    <td><button class="btn right"><i class="material-icons">library_books</i></button></td> 
-                    </tr>
-                    <tr class="child padding-td">
-                        <td parent="td" class="padding-td">
-                            <span>${row[i].Legajo}</span> 
-                            <span><br></span>
-                            <span>${row[i].ApellidoNombreC}</span> 
-                        </td>
-                        <td parent="td" class="padding-td">
-                            <span>${row[i].DNI}</span> 
-                            <span><br></span>
-                            <span>${row[i].CBU}</span> 
-                        </td>
-                        <td parent="td" class="padding-td">
-                            <span>${row[i].Denominacion}</span> 
-                            <span><br></span>
-                            <span>${row[i].Estado}</span> 
-                        </td>
-                        <td parent="td" class="padding-td">
-                            <span>${row[i].domicilio}</span> 
-                            <span><br></span>
-                            <span>${row[i].telefono}</span> 
-                        </td>
-                        <td parent="td" class="padding-td">
-                            <span>${row[i].ApellidoNombreV}</span> 
-                        </td>
-                    </tr>
-                    `
+                    <td><a href="#description-modal" class="btn description right modal-trigger"><i class="material-icons">description</i></a></td> 
+                    <td><a href="#movement-modal" class="btn movement right modal-trigger"><i class="material-icons">assignment</i></a></td> 
+                    <td><a href="#observation-modal" class="btn observation right modal-trigger"><i class="material-icons">library_books</i></a></td> 
+                    </tr>`
                     );
-                }    
-                $('table>tbody').html(html.join(''));
+                }  
+                $('.client-table>tbody').html(html.join(''));
+                // 
+                $('.description').click(function (e) { 
+                    e.preventDefault();
+                    var element = $(this)[0].parentElement.parentElement;
+                    var elementID = $(element).attr('clientID')
+                    getClientByID(elementID);
+                });
+                $('.movement').click(function (e) { 
+                    e.preventDefault();
+                    var element = $(this)[0].parentElement.parentElement;
+                    var elementID = $(element).attr('clientID')
+                    getMovements(elementID);
+                });
+                $('.observation').click(function (e) { 
+                    e.preventDefault();
+                    var element = $(this)[0].parentElement.parentElement;
+                    paramObs = $(element).attr('clientID');
+                    getObservations(paramObs);
+                });
+                // 
                 $('select').formSelect();
-                $(function() {
-                    $("td[parent=td]").find("span").hide();
-                    $(".description").click(function(event) {
-                        event.stopPropagation();
-                        var $target = $(event.target);
-                        if ( $target.closest("td").attr("parent") > 0 ) {
-                            $target.slideUp();
-                        } else {
-                            $target.closest("tr").next().find("span").slideToggle();
-                        }                    
-                    });
-                })
+                $('.modal').modal();
+                M.textareaAutoResize($('#textareaObserv'));
+                // 
+            },
+                error: function(){
+                    console.log('error');
+                }
+            });
+        }
+        // 
+        function getClientByID(leg){
+            $.ajax({
+                type: "GET",
+                url: "http://localhost/mutualasn-api/public/customers/getbyid/" + leg,
+                dataType: "json",
+                success: function (response) {
+                    var data = response.result;
+                    console.log(data);
+                    var estado;
+                    var cbu;
+                    var tel;
+                    var domicilio;
+                    if(data.Estado == "1"){
+                        estado = 'Activo';
+                    }else{
+                        estado = 'Inactivo';
+                    }
+                    if(data.CBU == null || data.CBU == ""){
+                        cbu = 'Sin asignar';
+                    }else{
+                        cbu = data.CBU;
+                    }
+                    if(data.telefono == null || data.telefono == ""){
+                        tel = 'Sin asignar';
+                    }else{
+                        tel = data.telefono;
+                    }
+                    if(data.domicilio == null || data.domicilio == ""){
+                        domicilio = 'Sin asignar';
+                    }else{
+                        domicilio = data.domicilio;
+                    }
+                    $('.s-legajo').html(data.Legajo);
+                    $('.s-nombre').html(data.ApellidoNombreC);
+                    $('.s-dni').html(data.DNI);
+                    $('.s-cbu').html(cbu);
+                    $('.s-tel').html(tel);
+                    $('.s-domicilio').html(domicilio);
+                    $('.s-denominacion').html(data.Denominacion);
+                    $('.s-vendedor').html(data.ApellidoNombreV);
+                    $('.s-estado').html(estado);
+
+                    $('input[name="nleg"]').val(data.Legajo);
+                    $('input[name="name"]').val(data.ApellidoNombreC);
+                    $('input[name="dni"]').val(data.DNI);
+                    $('input[name="cbu"]').val(data.CBU);
+                    $('input[name="tel"]').val(data.telefono);
+                    $('input[name="address"]').val(data.domicilio);
+                    $('input[name="denom"]').val(data.Denominacion);
+                    $('input[name="seller"]').val(data.ApellidoNombreV);
+                    $('input[name="state"]').val(estado);
+                    M.updateTextFields();
+                }
+            });
+        }
+        //
+
+        //
+        function getMovements(leg){
+            var params = leg + "/all/all"
+            $.ajax({
+                type: "GET",
+                url: "http://localhost/mutualasn-api/public/customers/movements/" + params,
+                dataType: "json",
+                success: function (response) {
+                    console.log(response.result);
+                    let row = response.result;
+                    let html = [];
+                    for (let i=0; i < row.length; i++){
+                    html.push(
+                    `<tr">
+                    <td>${row[i].Periodo}</td> 
+                    <td>${row[i].Saldo}</td> 
+                    <td>${row[i].Importe}</td> 
+                    <td>${row[i].Cobrado}</td> 
+                    <td>${row[i].Cuotas}</td>  
+                    <td>${row[i].CuotasPendientes}</td>  
+                    <td>${row[i].ConvenioCobro}</td>  
+                    <td>${row[i].NombreSuc}</td>  
+                    <td>${row[i].Descripcion}</td>  
+                    <td>${row[i].Motivo}</td>  
+                    <td>${row[i].Tipo}</td>  
+                    </tr>`
+                    );
+                }  
+                $('.client-movements>tbody').html(html.join(''));
+                }
+            });
+        }
+        // 
+        function getObservations(leg){
+            $.ajax({
+                type: "GET",
+                url: "http://localhost/mutualasn-api/public/customers/observations/list/" + leg,
+                dataType: "json",
+                success: function (response) {
+                    console.log(response.result);
+                    let row = response.result;
+                    let html = [];
+                    for (let i=0; i < row.length; i++){
+                    html.push(
+                    `<tr">
+                        <td>${row[i].texto}</td> 
+                        <td>${row[i].fecha}</td> 
+                    </tr>`
+                    );
+                }  
+                $('.client-obs>tbody').html(html.join(''));
                 },
                 error: function(){
                     console.log('error');
                 }
             });
         }
+
+        // 
+        $('.newObs').click(function (e) { 
+            e.preventDefault();
+            $('.newObs').addClass('hide');
+            $('.preloader-wrapper').removeClass('hide');
+            $.ajax({
+                type: "POST",
+                url: "http://localhost/mutualasn-api/public/customers/observations/create/" + paramObs,
+                data: {
+                    "texto": $("textarea[name=observation]").val()
+                },
+                dataType: "json",
+                success: function (response) {
+                    $("textarea[name=observation]").val('');
+                    $('.newObs').removeClass('hide');
+                    $('.preloader-wrapper').addClass('hide');
+                    M.toast({html: '¡Observación creada!'});
+                }, 
+                error: function(){
+                    M.toast({html: 'Error al crear observación'});
+                    $('.newObs').removeClass('hide');
+                    $('.preloader-wrapper').addClass('hide');
+                }
+            });
+        });
+        // 
+        $('.client-edit').click(function (e) { 
+            e.preventDefault();
+            $('.span-row').addClass('hide');
+            $('.form-row').removeClass('hide');
+        });
+        $('.client-show').click(function (e) { 
+            e.preventDefault();
+            $('.form-row').addClass('hide');
+            $('.span-row').removeClass('hide');
+        });
+        $('.obs-show').click(function (e) { 
+            e.preventDefault();
+            $('.form-obs').addClass('hide');
+            $('.table-obs').removeClass('hide');
+        });
+        $('.obs-new').click(function (e) { 
+            e.preventDefault();
+            $('.table-obs').addClass('hide');
+            $('.form-obs').removeClass('hide');
+        });
     </script>
 </body>
 </html>
