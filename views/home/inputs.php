@@ -163,17 +163,21 @@
                 let row = XL_row_object;
                 let html = [];
                 for (let i=0; i < row.length; i++){
+                    var leg = row[i].Legajo;
+                    if (leg.charAt(0) === 'R') {
+                        leg = leg.substring(1);
+                    }
                     html.push(
                     `<tr>
                     <td>${row[i].Nombre}</td> 
-                    <td>${row[i].Legajo}</td> 
+                    <td>${leg}</td> 
                     <td>${row[i].DNI}</td> 
                     <td>${row[i].Periodo}</td> 
                     <td>${row[i].Alta}</td> 
                     </tr>`
                     );
                     result.rows[i] = {"rep": row[i].Rep ?? '0', "solicitud": row[i].Solicitud ?? '0', "periodo": row[i].Periodo ?? '0',
-                        "nombre": row[i].Nombre ?? '0', "legajo": row[i].Legajo ?? '0', "alta": row[i].Alta ?? '0', "saldo": row[i].Saldo ?? '0',
+                        "nombre": row[i].Nombre ?? '0', "legajo": leg ?? '0', "alta": row[i].Alta ?? '0', "saldo": row[i].Saldo ?? '0',
                         "importe": row[i].Importe ?? '0', "cobrado": row[i].Cobrado ?? '0', "cuotas": row[i].Cuotas ?? '0',
                         "cuotaspendientes": row[i].CuotasPendientes ?? '0', "conveniocobro": row[i].ConvenioCobro ?? '0', 
                         "dni": row[i].DNI ?? '0', "cbu": row[i].CBU ?? '0', "rech": row[i].Rech ?? '0'
