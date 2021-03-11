@@ -113,6 +113,7 @@
                 url: "http://localhost/mutualasn-api/public/entities/get/products",
                 dataType: "json",
                 success: function (response) {
+                    console.log(response);
                     let rows = response.result;
                     let html = [];
                     for (let i=0; i < rows.length; i++){

@@ -28,25 +28,33 @@
     <div class="container">
         <div class="row">
             <h4>CLIENTES</h4>
-            <div class="col s12 m4 l4">
+            <div class="col s12 m3 l3">
                 <div class="input-field">
                     <select name="" id="rep">
                         <option value="0" disabled selected>Repartición</option>
                     </select>
                 </div>
             </div>
-            <div class="col s12 m4 l4">
+            <div class="col s12 m3 l3">
                 <div class="input-field">
                     <select name="" id="state">
-                        <option value="0" disabled selected>Estado</option>
+                        <option value="" disabled selected>Estado</option>
+                        <option value="1">Activo</option>
+                        <option value="0">Inactivo</option>
                     </select>
                 </div>
             </div>
-            <div class="col s12 m4 l4">
+            <div class="col s12 m3 l3">
                 <div class="input-field">
-                    <select name="" id="seller">
+                    <select name="" id="sell">
                         <option value="0" disabled selected>Vendedor</option>
                     </select>
+                </div>
+            </div>
+            <div class="col s12 m3 l3">
+                <div class="input-field">
+                    <input type="text" id="search">
+                    <label for="search">Buscar</label>
                 </div>
             </div>
             <div class="col s12 m12 l12">
@@ -57,7 +65,7 @@
                             <th>Nombre</th>
                             <th>DNI</th>
                             <th>CBU</th>
-                            <th>Denominacion</th>
+                            <th>Reparticion</th>
                             <th>Información</th>
                             <th>Movimientos</th>
                             <th>Observaciones</th>
@@ -79,47 +87,59 @@
                     <div class="col s12 m12 l12 divider" style="margin-bottom: 20px !important;"></div>
                     <form action="">
                         <div class="input-field col s12 m6 l6">
-                            <input type="text" class="validate" name="nleg">
-                            <label for="legajo">LEGAJO</label>
+                            <input type="text" id="leg-l" class="validate" name="nleg">
+                            <label for="leg-l">LEGAJO</label>
                         </div>
                         <div class="input-field col s12 m6 l6">
-                            <input type="text" class="validate" name="name">
-                            <label for="name">NOMBRE</label>
+                            <input type="text" class="validate" id="name-l" name="name">
+                            <label for="name-l">NOMBRE</label>
                         </div>
                         <div class="input-field col s12 m6 l6">
-                            <input type="text" class="validate" name="dni">
-                            <label for="dni">DNI</label>
+                            <input type="text" id="dni-l" class="validate" name="dni">
+                            <label for="dni-l">DNI</label>
                         </div>
                         <div class="input-field col s12 m6 l6">
-                            <input type="text" class="validate" name="cbu">
-                            <label for="cbu">CBU</label>
+                            <input type="text" id="cbu-l" class="validate" name="cbu">
+                            <label for="cbu-l">CBU</label>
                         </div>
                         <div class="input-field col s12 m6 l6">
-                            <input type="text" class="validate" name="tel">
-                            <label for="tel">TELÉFONO</label>
+                            <input type="text" id="tel-l" class="validate" name="tel">
+                            <label for="tel-l">TELÉFONO</label>
                         </div>
                         <div class="input-field col s12 m6 l6">
-                            <input type="text" class="validate" name="address">
-                            <label for="address">DOMICILIO</label>
+                            <input type="text" id="address-l" class="validate" name="address">
+                            <label for="address-l">DOMICILIO</label>
                         </div>
                         <div class="input-field col s12 m6 l6">
-                            <input type="text" class="validate" name="denom">
-                            <label for="denom">DENOMINACIÓN</label>
+                            <select name="" id="denom">
+                                <option value="" disabled selected>Repartición</option>
+                            </select>
                         </div>
                         <div class="input-field col s12 m6 l6">
-                            <select name="" id="seller">
+                            <select name="" id="sellers">
                                 <option value="" disabled selected>Vendedor</option>
                             </select>
                         </div>
                         <div class="input-field col s12 m6 l6 center-align">
-                            <select name="" id="state">
+                            <select name="" id="states">
                                 <option value="" disabled selected>Estado</option>
                                 <option value="1">Activo</option>
-                                <option value="2">Inactivo</option>
+                                <option value="0">Inactivo</option>
                             </select>
                         </div>
                         <div class="modal-footer col s12 m6 l6" style="padding-top: 20px !important;">
-                            <a href="#!" class="btn right">Aceptar</a>
+                            <a href="#!" class="btn right client-update">Aceptar</a>
+                            <div class="preloader-wrapper preloader-update hide small right active">
+                                <div class="spinner-layer spinner-red-only">
+                                <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                </div><div class="gap-patch">
+                                    <div class="circle"></div>
+                                </div><div class="circle-clipper right">
+                                    <div class="circle"></div>
+                                </div>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -264,17 +284,138 @@
 
     <script>
         // Variables
-         var paramObs;
+         var paramLeg;
+         var selectedDenom;
+         var selectedSeller;
+         var selectedState;
+         var selectedRep = 'all';
+         var selectedSell = 'all';
+         var selectedStates = 'all';
         // 
         $(document).ready(function () {
             getClients();
+            search();
+            $("#denom").change(function(){
+                selectedDenom = $(this).children("option:selected").val();
+                console.log(selectedDenom);
+            });
+            $("#sellers").change(function(){
+                selectedSeller = $(this).children("option:selected").val();
+                console.log(selectedSeller);
+            });
+            $("#states").change(function(){
+                selectedState = $(this).children("option:selected").val();
+                console.log(selectedState);
+            });
+            $("#rep").change(function(){
+                selectedRep = $(this).children("option:selected").val();
+                console.log(selectedRep);
+                getClients();
+            });
+            $("#sell").change(function(){
+                selectedSell = $(this).children("option:selected").val();
+                console.log(selectedSell);
+                getClients();
+            });
+            $("#state").change(function(){
+                selectedStateList = $(this).children("option:selected").val();
+                console.log(selectedStateList);
+                getClients();
+            });
+            // 
+            $.ajax({
+                type: "GET",
+                url: "http://localhost/mutualasn-api/public/entities/get/distributions",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    let rows = response.result;
+                    let html = [];
+                    for (let i=0; i < rows.length; i++){
+                        html.push(
+                            `
+                            <option value="${rows[i].CodReparticion}">${rows[i].Denominacion}</option>
+                            `
+                        );
+                    }    
+                    $('#rep').append(html.join(''));
+                },
+                error: function(){
+                    console.log('error');
+                }
+            });
+            // 
+            $.ajax({
+                type: "GET",
+                url: "http://localhost/mutualasn-api/public/entities/get/sellers",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    let rows = response.result;
+                    let html = [];
+                    for (let i=0; i < rows.length; i++){
+                        html.push(
+                            `
+                            <option value="${rows[i].CodVendedor}">${rows[i].ApellidoNombreV}</option>
+                            `
+                        );
+                    }    
+                    $('#sell').append(html.join(''));
+                    $('select').formSelect();
+                },
+                error: function(){
+                    console.log('error');
+                }
+            });
+            // 
+            $.ajax({
+                type: "GET",
+                url: "http://localhost/mutualasn-api/public/entities/get/distributions",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    let rows = response.result;
+                    let html = [];
+                    for (let i=0; i < rows.length; i++){
+                        html.push(
+                            `<option value="${rows[i].CodReparticion}">${rows[i].Denominacion}</option>`
+                        );
+                    }    
+                    $('#denom').append(html.join(''));
+                },
+                error: function(){
+                    console.log('error');
+                }
+            });
+            // 
+            $.ajax({
+                type: "GET",
+                url: "http://localhost/mutualasn-api/public/entities/get/sellers",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    let rows = response.result;
+                    let html = [];
+                    for (let i=0; i < rows.length; i++){
+                        html.push(
+                            `<option value="${rows[i].CodVendedor}">${rows[i].ApellidoNombreV}</option>`
+                        );
+                    }    
+                    $('#sellers').append(html.join(''));
+                    $('select').formSelect();
+                },
+                error: function(){
+                    console.log('error');
+                }
+            });
         });
         // 
         function getClients(){
             // 
+            var url = "http://localhost/mutualasn-api/public/customers/get/" + selectedRep + '/' + selectedStates + '/' + selectedSell;
             $.ajax({
                 type: "GET",
-                url: "http://localhost/mutualasn-api/public/customers/get/all/all/all",
+                url: url,
                 dataType: "json",
                 success: function (response) {
                     console.log(response.result);
@@ -282,7 +423,7 @@
                     let html = [];
                     for (let i=0; i < row.length; i++){
                     html.push(
-                    `<tr clientID="${row[i].Legajo}">
+                    `<tr class="content" clientID="${row[i].Legajo}">
                     <td>${row[i].Legajo}</td> 
                     <td>${row[i].ApellidoNombreC}</td> 
                     <td>${row[i].DNI}</td> 
@@ -299,20 +440,20 @@
                 $('.description').click(function (e) { 
                     e.preventDefault();
                     var element = $(this)[0].parentElement.parentElement;
-                    var elementID = $(element).attr('clientID')
-                    getClientByID(elementID);
+                    paramLeg = $(element).attr('clientID')
+                    getClientByID(paramLeg);
                 });
                 $('.movement').click(function (e) { 
                     e.preventDefault();
                     var element = $(this)[0].parentElement.parentElement;
-                    var elementID = $(element).attr('clientID')
-                    getMovements(elementID);
+                    paramLeg = $(element).attr('clientID')
+                    getMovements(paramLeg);
                 });
                 $('.observation').click(function (e) { 
                     e.preventDefault();
                     var element = $(this)[0].parentElement.parentElement;
-                    paramObs = $(element).attr('clientID');
-                    getObservations(paramObs);
+                    paramLeg = $(element).attr('clientID');
+                    getObservations(paramLeg);
                 });
                 // 
                 $('select').formSelect();
@@ -333,7 +474,6 @@
                 dataType: "json",
                 success: function (response) {
                     var data = response.result;
-                    console.log(data);
                     var estado;
                     var cbu;
                     var tel;
@@ -377,6 +517,10 @@
                     $('input[name="denom"]').val(data.Denominacion);
                     $('input[name="seller"]').val(data.ApellidoNombreV);
                     $('input[name="state"]').val(estado);
+
+                    selectedDenom = data.CodReparticion;
+                    selectedSeller = data.CodVendedor;
+                    selectedState = data.Estado;
                     M.updateTextFields();
                 }
             });
@@ -444,20 +588,46 @@
         // 
         $('.newObs').click(function (e) { 
             e.preventDefault();
+            var today = new Date();
+            var getdate = today.getDate();
+            if(getdate <= 9){
+                getdate = '0' + getdate;
+            }
+            var getmonth = today.getMonth() + 1;
+            if(getmonth <= 9){
+                getmonth = '0' + getmonth;
+            }
+            var gethour = today.getHours();
+            if(gethour <= 9){
+                gethour = '0' + gethour;
+            }
+            var getminute = today.getMinutes();
+            if(getminute <= 9){
+                getminute = '0' + getminute;
+            }
+            var getsecond = today.getSeconds();
+            if(getsecond <= 9){
+                getsecond = '0' + getsecond;
+            }
+            var date = today.getFullYear() + '-' + (getmonth) + '-' + getdate;
+            var hour = gethour + ':' + getminute + ':' + getsecond;
+            var moment = date + ' ' + hour;
+            var text = $("textarea[name=observation]").val();
             $('.newObs').addClass('hide');
             $('.preloader-wrapper').removeClass('hide');
             $.ajax({
                 type: "POST",
-                url: "http://localhost/mutualasn-api/public/customers/observations/create/" + paramObs,
+                url: "http://localhost/mutualasn-api/public/customers/observations/create/" + paramLeg,
                 data: {
-                    "texto": $("textarea[name=observation]").val()
+                    "texto": text
                 },
                 dataType: "json",
                 success: function (response) {
-                    $("textarea[name=observation]").val('');
                     $('.newObs').removeClass('hide');
                     $('.preloader-wrapper').addClass('hide');
                     M.toast({html: '¡Observación creada!'});
+                    getObservations(paramLeg);
+                    $("textarea[name=observation]").val('');
                 }, 
                 error: function(){
                     M.toast({html: 'Error al crear observación'});
@@ -466,6 +636,51 @@
                 }
             });
         });
+        // 
+        $('.client-update').click(function (e) { 
+            e.preventDefault();
+            $('.client-update').addClass('hide');
+            $('.preloader-update').removeClass('hide');
+            var newLeg = $('input[name="nleg"]').val();
+            var data = {
+                'legajo': $('input[name="nleg"]').val(),
+                'apellidonombre': $('input[name="name"]').val(),
+                'dni': $('input[name="dni"]').val(),
+                'telefono': $('input[name="tel"]').val(),
+                'domicilio': $('input[name="address"]').val(),
+                'cbu': $('input[name="cbu"]').val(),
+                'reparticion': selectedDenom,
+                'vendedor': selectedSeller,
+                'estado': selectedState,
+                'id': paramLeg
+            };
+            $.ajax({
+                type: "POST",
+                url: "http://localhost/mutualasn-api/public/customers/update",
+                data: data,
+                dataType: "json",
+                success: function (response) {
+                    $('.client-update').removeClass('hide');
+                    $('.preloader-update').addClass('hide');
+                    M.toast({html: '¡Cliente actualizado!'});
+                    getClientByID(newLeg);
+                },
+                error: function(){
+                    M.toast({html: 'Error al actualizar cliente'});
+                    $('.client-update').removeClass('hide');
+                    $('.preloader-update').addClass('hide');
+                }
+            });
+        });
+        // 
+        function search(){
+            $("#search").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $(".content").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        }
         // 
         $('.client-edit').click(function (e) { 
             e.preventDefault();
