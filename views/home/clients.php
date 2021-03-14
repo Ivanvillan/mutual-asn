@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mutual ASN | Clientes</title>
     <style>
+        .container{
+            margin-left: 300px !important;
+        }
         .padding-description{
             padding: 5px !important;
         }
@@ -18,8 +21,20 @@
         .margin-a{
             margin-top: 3px !important;
         }
+        .margin-b{
+            margin-top: 25px !important;
+        }
         .modal{ 
             width: 75% !important; 
+        }
+        i.icon-green{
+            color: #1b5e20;
+        }
+        i.icon-red{
+            color: #b71c1c;
+        }
+        i.icon-orange{
+            color: #f57c00;
         }
     </style>
 </head>
@@ -51,7 +66,10 @@
                     </select>
                 </div>
             </div>
-            <div class="col s12 m3 l3">
+            <div class="col s12 m3 l3 margin-b">
+                <a href="#" class="btn btn-clean blue-grey darken-4">Limpiar</a>
+            </div>
+            <div class="col s12 m4 l4">
                 <div class="input-field">
                     <input type="text" id="search">
                     <label for="search">Buscar</label>
@@ -128,7 +146,7 @@
                             </select>
                         </div>
                         <div class="modal-footer col s12 m6 l6" style="padding-top: 20px !important;">
-                            <a href="#!" class="btn right client-update">Aceptar</a>
+                            <a href="#!" class="btn right client-update blue darken-2">Aceptar</a>
                             <div class="preloader-wrapper preloader-update hide small right active">
                                 <div class="spinner-layer spinner-red-only">
                                 <div class="circle-clipper left">
@@ -187,7 +205,7 @@
                         <span class="s-estado"></span>
                     </div>
                     <div class="modal-footer col s12 m6 l6 offset-m3 offset-l3">
-                        <a href="#!" class="btn client-edit">Editar</a>
+                        <a href="#!" class="btn client-edit orange darken-2">Editar</a>
                     </div>
                 </div>
                 <!-- FIN INRMACION DEL CLIENTE -->
@@ -242,7 +260,7 @@
                             <label for="textareaObserv">Observación</label>
                         </div>
                         <div class="modal-footer col s12 m12 l12" style="padding-top: 30px !important;">
-                            <a href="#!" class="btn right newObs">Crear</a>
+                            <a href="#!" class="btn right newObs blue darken-2">Crear</a>
                             <div class="preloader-wrapper hide small right active">
                                 <div class="spinner-layer spinner-red-only">
                                 <div class="circle-clipper left">
@@ -267,6 +285,7 @@
                                 <tr>
                                     <th>Observación</th>
                                     <th>Fecha</th>
+                                    <th>Eliminar</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -274,7 +293,7 @@
                         </table>
                     </div>
                     <div class="modal-footer right" style="padding-top: 20px !important;">
-                        <a href="#!" class="btn obs-new">Nueva</a>
+                        <a href="#!" class="btn obs-new blue darken-2">Nueva</a>
                     </div>
                 </div>
             </div>
@@ -285,6 +304,7 @@
     <script>
         // Variables
          var paramLeg;
+         var paramObs;
          var selectedDenom;
          var selectedSeller;
          var selectedState;
@@ -318,8 +338,8 @@
                 getClients();
             });
             $("#state").change(function(){
-                selectedStateList = $(this).children("option:selected").val();
-                console.log(selectedStateList);
+                selectedStates = $(this).children("option:selected").val();
+                console.log(selectedStates);
                 getClients();
             });
             // 
@@ -339,6 +359,7 @@
                         );
                     }    
                     $('#rep').append(html.join(''));
+                    $('select').formSelect();
                 },
                 error: function(){
                     console.log('error');
@@ -382,6 +403,7 @@
                         );
                     }    
                     $('#denom').append(html.join(''));
+                    $('select').formSelect();
                 },
                 error: function(){
                     console.log('error');
@@ -429,9 +451,9 @@
                     <td>${row[i].DNI}</td> 
                     <td>${row[i].CBU}</td> 
                     <td>${row[i].Denominacion}</td> 
-                    <td><a href="#description-modal" class="btn description right modal-trigger"><i class="material-icons">description</i></a></td> 
-                    <td><a href="#movement-modal" class="btn movement right modal-trigger"><i class="material-icons">assignment</i></a></td> 
-                    <td><a href="#observation-modal" class="btn observation right modal-trigger"><i class="material-icons">library_books</i></a></td> 
+                    <td><a href="#description-modal" class="btn  teal darken-4 description right modal-trigger"><i class="material-icons">description</i></a></td> 
+                    <td><a href="#movement-modal" class="btn blue darken-4 movement right modal-trigger"><i class="material-icons">assignment</i></a></td> 
+                    <td><a href="#observation-modal" class="btn orange darken-4 observation right modal-trigger"><i class="material-icons">library_books</i></a></td> 
                     </tr>`
                     );
                 }  
@@ -526,7 +548,13 @@
             });
         }
         //
-
+        $('.btn-clean').click(function (e) { 
+            e.preventDefault();
+            selectedRep = 'all';
+            selectedSell = 'all';
+            selectedStates = 'all';
+            getClients();
+        });
         //
         function getMovements(leg){
             var params = leg + "/all/all"
@@ -539,6 +567,14 @@
                     let row = response.result;
                     let html = [];
                     for (let i=0; i < row.length; i++){
+                    var type = row[i].Tipo;
+                    if (type == "DEBITO") {
+                        type = type + ' ' + `<i class="material-icons icon-green tiny">check</i>`
+                    } else if (type == "NO ENVIADO"){
+                        type = type + ' ' + `<i class="material-icons icon-orange tiny">priority_high</i>`
+                    }else {
+                        type = type + ' ' + `<i class="material-icons icon-red tiny">clear</i>`
+                    }
                     html.push(
                     `<tr">
                     <td>${row[i].Periodo}</td> 
@@ -551,7 +587,7 @@
                     <td>${row[i].NombreSuc}</td>  
                     <td>${row[i].Descripcion}</td>  
                     <td>${row[i].Motivo}</td>  
-                    <td>${row[i].Tipo}</td>  
+                    <td>${type}</td>  
                     </tr>`
                     );
                 }  
@@ -571,13 +607,21 @@
                     let html = [];
                     for (let i=0; i < row.length; i++){
                     html.push(
-                    `<tr">
+                    `<tr obsID="${row[i].id}">
                         <td>${row[i].texto}</td> 
                         <td>${row[i].fecha}</td> 
+                        <td><a href="#" class="btn red darken-4 obs-delete"><i class="material-icons">delete</i></a></td> 
+                        <td></td> 
                     </tr>`
                     );
                 }  
                 $('.client-obs>tbody').html(html.join(''));
+                $('.obs-delete').click(function (e) { 
+                    e.preventDefault();
+                    var element = $(this)[0].parentElement.parentElement;
+                    paramObs = $(element).attr('obsID')
+                    deleteObs(paramObs)
+                });
                 },
                 error: function(){
                     console.log('error');
@@ -672,6 +716,21 @@
                 }
             });
         });
+        // 
+        function deleteObs(id){
+            $.ajax({
+                type: "POST",
+                url: "http://localhost/mutualasn-api/public/customers/observations/delete/" + id,
+                dataType: "json",
+                success: function (response) {
+                    M.toast({html: '¡Observación eliminada!'});
+                    getObservations(paramLeg);
+                },
+                error: function(){
+                    M.toast({html: 'Error al eliminar observación'});
+                }
+            });
+        }
         // 
         function search(){
             $("#search").on("keyup", function() {

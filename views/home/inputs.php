@@ -6,6 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.3/xlsx.full.min.js"></script>
     <title>Mutual ASN | Ingreso de planilla</title>
+    <style>
+        .margin-b{
+            margin-top: 30px !important;
+        }
+        .container{
+            margin-left: 300px !important;
+        }
+    </style>
 </head>
 <body>
     <?php include('../header/header.php') ?>
@@ -41,7 +49,7 @@
             <div class="col s12 m5 l5">
                 <form action="#">
                     <div class="file-field input-field">
-                        <div class="btn black">
+                        <div class="btn teal darken-4">
                             <span>Planilla</span>
                             <input type="file" id="fileUpload" accept=".xls,.xlsx">
                         </div>
@@ -51,8 +59,8 @@
                     </div>
                 </form>
             </div>
-            <div class="col s12 m1 l1 right">
-                <button class="btn excelUpload black">Subir</button>
+            <div class="col s12 m1 l1 right margin-b">
+                <button class="btn excelUpload blue darken-2">Subir</button>
                 <div class="preloader-wrapper hide small active">
                     <div class="spinner-layer spinner-red-only">
                     <div class="circle-clipper left">
@@ -122,6 +130,7 @@
                         );
                     }    
                     $('#products').append(html.join(''));
+                    $('select').formSelect();
                 },
                 error: function(){
                     console.log('error');
@@ -164,7 +173,7 @@
                 let html = [];
                 for (let i=0; i < row.length; i++){
                     var leg = row[i].Legajo;
-                    if (leg.charAt(0) === 'R') {
+                    if (leg.charAt(0) === 'R' || "J") {
                         leg = leg.substring(1);
                     }
                     html.push(

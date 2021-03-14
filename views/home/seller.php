@@ -16,16 +16,28 @@
             margin-top: 0px !important;
         }
         .margin-a{
-            margin-top: 3px !important;
+            margin-top: 25px !important;
+        }
+        .margin-b{
+            margin-top: 30px !important;
         }
         .modal{ 
             width: 75% !important; 
         }
         .table-movement tbody tr td {
-            font-size: 13px;
+            font-size: 14px;
         }
         .table-movement tr {
             font-size: 13px;
+        }
+        i.icon-green{
+            color: #1b5e20;
+        }
+        i.icon-red{
+            color: #b71c1c;
+        }
+        i.icon-orange{
+            color: #f57c00;
         }
     </style>
 </head>
@@ -34,9 +46,12 @@
     <div class="container">
         <div class="row">
             <h4>VENDEDORES</h4>
-            <div class="input-field col s6 searchSeller">
+            <div class="input-field col s4 m4 l4 searchSeller">
                 <input id="searchSeller" type="text" class="validate">
-                <label for="search">Buscar</label>
+                <label for="searchSeller">Buscar</label>
+            </div>
+            <div class="input-field col s8 m8 l8 new-seller margin-b">
+                <a href="#newSeller-modal" class="btn right blue darken-2 modal-trigger">Nuevo</a>
             </div>
             <div class="col s12 m12 l12 table-seller">
                 <table class="highlight responsive-table seller-table">
@@ -94,15 +109,18 @@
                         </select>
                     </div>
                 </div>
-                <div class="input-field col s12 m2 l2 searchMovement">
-                    <input id="searchMovement" type="text" class="validate">
-                    <label for="search">Buscar</label>
+                <div class="col s12 m2 l2 margin-a">
+                    <a href="#" class="btn btn-clean right blue-grey darken-4">Limpiar</a>
                 </div>
-                <div class="col s12 m6 l6 btn-back">
-                    <a href="#" class="btn right">Volver</a>
+                <div class="input-field col s12 m4 l4 searchMovement">
+                    <input id="searchMovement" type="text" class="validate">
+                    <label for="searchMovement">Buscar</label>
+                </div>
+                <div class="col s12 m8 l8 margin-b">
+                    <a href="#" class="btn btn-back right blue darken-2">Volver</a>
                 </div>
                 <div class="col s12 m12 l12 table-movement">
-                    <table class="highlight responsive-table movement-table striped">
+                    <table class="highlight responsive-table movement-table">
                         <thead>
                             <tr>
                                 <th>Periodo</th>
@@ -131,7 +149,7 @@
         </div>
         <div id="description-modal" class="modal">
             <div class="modal-content">
-            <!-- INICIO FORMULARIO CLIENTE -->
+            <!-- INICIO FORMULARIO VENDEDOR -->
                 <div class="row form-row">
                     <h5 class="col s10 m10 l10 margin-h5">EDITAR VENDEDOR</h5>
                     <a class="col s1 m1 l1 right modal-close margin-a"><i class="material-icons" style="color: #000 !important;">close</i></a>
@@ -158,7 +176,7 @@
                             <label for="correoelectronico-l">CORREO</label>
                         </div>
                         <div class="modal-footer col s12 m6 l6" style="padding-top: 20px !important;">
-                            <a href="#!" class="btn right seller-update">Aceptar</a>
+                            <a href="#!" class="btn right seller-update blue darken-2">Aceptar</a>
                             <div class="preloader-wrapper preloader-update hide small right active">
                                 <div class="spinner-layer spinner-red-only">
                                 <div class="circle-clipper left">
@@ -173,11 +191,57 @@
                         </div>
                     </form>
                 </div>
-                <!-- FIN FORMULARIO CLIENTE -->
+                <!-- FIN FORMULARIO VENDEDOR -->
+            </div>
+        </div>
+        <div id="newSeller-modal" class="modal">
+            <div class="modal-content">
+            <!-- INICIO FORMULARIO VENDEDOR -->
+                <div class="row form-newSeller">
+                    <h5 class="col s10 m10 l10 margin-h5">NUEVO VENDEDOR</h5>
+                    <a class="col s1 m1 l1 right modal-close margin-a"><i class="material-icons" style="color: #000 !important;">close</i></a>
+                    <div class="col s12 m12 l12 divider" style="margin-bottom: 20px !important;"></div>
+                    <form action="" id="newSeller-form">
+                        <div class="input-field col s12 m6 l6">
+                            <input type="text" class="validate" id="name-s" name="s-name">
+                            <label for="name-s">NOMBRE</label>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                            <input type="text" id="telfijo-s" class="validate" name="s-fij">
+                            <label for="telfijo-s">TELEFONO FIJO</label>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                            <input type="text" id="telmovil-s" class="validate" name="s-mov">
+                            <label for="telmovil-s">TELEFÓNO MOVIL</label>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                            <input type="text" id="domicilio-s" class="validate" name="s-address">
+                            <label for="domicilio-s">DOMICILIO</label>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                            <input type="text" id="correoelectronico-s" class="validate" name="s-mail">
+                            <label for="correoelectronico-s">CORREO</label>
+                        </div>
+                        <div class="modal-footer col s12 m6 l6" style="padding-top: 20px !important;">
+                            <a href="#!" class="btn right newSeller blue darken-2">Aceptar</a>
+                            <div class="preloader-wrapper preloader-newSeller hide small right active">
+                                <div class="spinner-layer spinner-red-only">
+                                <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                </div><div class="gap-patch">
+                                    <div class="circle"></div>
+                                </div><div class="circle-clipper right">
+                                    <div class="circle"></div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- FIN FORMULARIO VENDEDOR -->
             </div>
         </div>
     </div>
-
     <script>
         // variables
         var sellerID;
@@ -185,31 +249,35 @@
         var selectedSuc = 'all';
         var selectedProd = 'all';
         var selectedMov = 'all';
-        var selectedTipRech;
+        var selectedTipRech = "";
         // 
         $(document).ready(function () {
+            $('.container').css( { "margin-left" : "300px" } );
             getSellers();
             searchSeller();
             searchMovement();
             $("#per").change(function(){
                 selectedPer = $(this).children("option:selected").val();
-                console.log(selectedPer);
+                getMovement();
             });
             $("#suc").change(function(){
                 selectedSuc = $(this).children("option:selected").val();
                 console.log(selectedSuc);
+                getMovement();
             });
             $("#prod").change(function(){
                 selectedProd = $(this).children("option:selected").val();
-                console.log(selectedProd);
+                getMovement();
             });
             $("#mov").change(function(){
                 selectedMov = $(this).children("option:selected").val();
                 console.log(selectedMov);
+                getMovement();
             });
-            $("#tipRech").change(function(){
-                selectedTipRech = $(this).children("option:selected").val();
+            $("#mot").change(function(){
+                selectedTipRech = '/' + $(this).children("option:selected").val();
                 console.log(selectedTipRech);
+                getMovement();
             });
             $.ajax({
                 type: "GET",
@@ -247,6 +315,7 @@
                         );
                     }    
                     $('#suc').append(html.join(''));
+                    $('select').formSelect();
                 },
                 error: function(){
                     console.log('error');
@@ -267,6 +336,7 @@
                         );
                     }    
                     $('#prod').append(html.join(''));
+                    $('select').formSelect();
                 },
                 error: function(){
                     console.log('error');
@@ -312,8 +382,8 @@
                     <td name="mov-td">${row[i].TelMovil}</td> 
                     <td name="address-td">${row[i].Domicilio}</td> 
                     <td name="mail-td">${row[i].CorreoElectronico}</td> 
-                    <td> <a href="#description-modal" class="btn description right modal-trigger"><i class="material-icons">edit</i></a></td> 
-                    <td><a href="#movement-modal" class="btn movement right modal-trigger"><i class="material-icons">assignment</i></a></td>  
+                    <td> <a href="#description-modal" class="btn description yellow darken-4 modal-trigger"><i class="material-icons">edit</i></a></td> 
+                    <td><a href="#" class="btn movement blue darken-4"><i class="material-icons">assignment</i></a></td>  
                     </tr>`
                     );
                 }    
@@ -346,9 +416,11 @@
                     e.preventDefault();
                     var element = $(this)[0].parentElement.parentElement;
                     paramMov = $(element).attr('sellerID')
-                    getMovement(paramMov);
+                    getMovement();
+                    $('.container').css( { "margin-left" : "265px" } );
                     $('.table-seller').addClass('hide');
                     $('.searchSeller').addClass('hide');
+                    $('.new-seller').addClass('hide');
                     $('.movs').removeClass('hide');
                     $('.btn-back').removeClass('hide');
                 });
@@ -394,8 +466,44 @@
             });
         });
         // 
-        function getMovement(id){
-            url = "http://localhost/mutualasn-api/public/movements/get/" + selectedPer + "/" + selectedSuc + "/" + 1 + "/" + selectedMov;
+        $('.newSeller').click(function (e) { 
+            $('.newSeller').addClass('hide');
+            $('.preloader-newSeller').removeClass('hide');
+            var sellerName = $('input[name="s-name"]').val();
+            var sellerFij = $('input[name="s-fij"]').val();
+            var sellerMov = $('input[name="s-mov"]').val();
+            var sellerAddress = $('input[name="s-address"]').val();
+            var sellerMail = $('input[name="s-mail"]').val();
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "http://localhost/mutualasn-api/public/entities/sellers",
+                data: {
+                    "apellidonombre": sellerName,
+                    "telfijo": sellerFij,
+                    "telmovil": sellerMov,
+                    "domicilio": sellerAddress,
+                    "correoelectronico": sellerMail,
+                },
+                dataType: "json",
+                success: function (response) {
+                    $('.newSeller').removeClass('hide');
+                    $('.preloader-newSeller').addClass('hide');
+                    M.toast({html: '¡Vendedor creado!'});
+                    $('#newSeller-form').trigger('reset');
+                    getSellers();
+                },
+                error: function(){
+                    M.toast({html: 'Error al crear vendedor'});
+                    $('.newSeller').removeClass('hide');
+                    $('.preloader-newSeller').addClass('hide');
+                }
+            });
+        });
+        // 
+        function getMovement(){
+            url = "http://localhost/mutualasn-api/public/movements/get/" + selectedPer + "/" + selectedSuc + "/" + selectedProd + "/" + 1 + "/" + selectedMov + selectedTipRech;
+            console.log(url);
             $.ajax({
                 type: "GET",
                 url: url,
@@ -405,6 +513,14 @@
                     let row = response.result;
                     let html = [];
                     for (let i=0; i < row.length; i++){
+                    var type = row[i].Tipo;
+                    if (type == "DEBITO") {
+                        type = type + ' ' + `<i class="material-icons icon-green tiny">check</i>`
+                    } else if (type == "NO ENVIADO"){
+                        type = type + ' ' + `<i class="material-icons icon-orange tiny">priority_high</i>`
+                    }else {
+                        type = type + ' ' + `<i class="material-icons icon-red tiny">clear</i>`
+                    }
                     html.push(
                     `<tr class="content">
                     <td>${row[i].Periodo}</td> 
@@ -421,7 +537,7 @@
                     <td>${row[i].CuotasPendientes}</td>  
                     <td>${row[i].Importe}</td>  
                     <td>${row[i].Saldo}</td>  
-                    <td>${row[i].Tipo}</td>  
+                    <td>${type}</td>  
                     <td>${row[i].Motivo}</td>  
                     </tr>`
                     );
@@ -431,8 +547,19 @@
             });
         }
         // 
+        $('.btn-clean').click(function (e) { 
+            e.preventDefault();
+            selectedPer = 'all';
+            selectedSuc = 'all';
+            selectedProd = 'all';
+            selectedMov = 'all';
+            selectedTipRech = "";
+            getMovement();
+        });
+        // 
         $('.btn-back').click(function (e) { 
             e.preventDefault();
+            $('.container').css( { "margin-left" : "300px" } );
             $('.table-seller').removeClass('hide');
             $('.searchSeller').removeClass('hide');
             $('.btn-back').addClass('hide');

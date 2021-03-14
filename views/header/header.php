@@ -36,7 +36,7 @@ if (isset($_SESSION['ID'])) {
             color: #000000;
         }
         .container{
-            margin-left: 315px;
+            margin-left: 265px;
         }
         @media only screen and (max-width : 992px) {
             nav, header, main, footer {
@@ -50,18 +50,18 @@ if (isset($_SESSION['ID'])) {
     </style>
 </head>
 <body>
-    <ul id="slide-out" class="sidenav light-blue darken-4 sidenav-fixed sidenav-left">
+    <ul id="slide-out" class="sidenav blue darken-4 sidenav-fixed sidenav-left" style="width: 250px !important">
         <div class="center-align">
-        <img class="responsive-img" src="../../assets/logo-mutual.png" width="150" height="150">
+        <img class="responsive-img" src="../../assets/logo-mutual.png" width="120" height="120">
         </div>
-        <div class="divider black"></div>
+        <div class="divider grey blue-grey lighten-5"></div>
         <li><a href="index.php" class="white-text">Gráficos</a></li>
         <li><a href="clients.php" class="white-text">Clientes</a></li>
         <li><a href="seller.php" class="white-text">Vendedores</a></li>
         <li><a href="inputs.php" class="white-text">Ingresar planilla</a></li>
         <li><a href="reports.php" class="white-text">Informes</a></li>
     </ul>
-    <ul class="sidenav light-blue darken-4" id="sidenav-mobile">
+    <ul class="sidenav blue darken-4" id="sidenav-mobile">
         <li><a href="index.php" class="white-text">Gráficos</a></li>
         <li><a href="clients.php" class="white-text">Clientes</a></li>
         <li><a href="seller.php" class="white-text">Vendedores</a></li>
@@ -72,7 +72,7 @@ if (isset($_SESSION['ID'])) {
         <li><a href="!#" class="logout"><i class="material-icons white-text">exit_to_app</i></a></li>
     </ul>
     <div class="navbar-fixed">
-        <nav class="light-blue darken-4">
+        <nav class="blue darken-4">
             <div class="nav-wrapper">
                 <a href="#" data-target="sidenav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
