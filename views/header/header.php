@@ -40,11 +40,11 @@ if (isset($_SESSION['ID'])) {
         }
         @media only screen and (max-width : 992px) {
             nav, header, main, footer {
-                padding-left: 0;
-                padding-right: 0;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
             }
             .container{
-            margin-left: 15px;
+            margin-left: 15px !important;
             }
         }
     </style>
@@ -55,11 +55,11 @@ if (isset($_SESSION['ID'])) {
         <img class="responsive-img" src="../../assets/logo-mutual.png" width="120" height="120">
         </div>
         <div class="divider grey blue-grey lighten-5"></div>
-        <li><a href="index.php" class="white-text">Gráficos</a></li>
-        <li><a href="clients.php" class="white-text">Clientes</a></li>
-        <li><a href="seller.php" class="white-text">Vendedores</a></li>
-        <li><a href="inputs.php" class="white-text">Ingresar planilla</a></li>
-        <li><a href="reports.php" class="white-text">Informes</a></li>
+        <li><a href="index.php" class="white-text" style="font-size: 16px;">Gráficos</a></li>
+        <li><a href="clients.php" class="white-text" style="font-size: 16px;">Clientes</a></li>
+        <li><a href="seller.php" class="white-text" style="font-size: 16px;">Vendedores</a></li>
+        <li><a href="inputs.php" class="white-text" style="font-size: 16px;">Ingresar planilla</a></li>
+        <li><a href="reports.php" class="white-text" style="font-size: 16px;">Informes</a></li>
     </ul>
     <ul class="sidenav blue darken-4" id="sidenav-mobile">
         <li><a href="index.php" class="white-text">Gráficos</a></li>

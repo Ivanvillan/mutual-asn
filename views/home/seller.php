@@ -25,10 +25,10 @@
             width: 75% !important; 
         }
         .table-movement tbody tr td {
-            font-size: 14px;
+            font-size: 13px;
         }
         .table-movement tr {
-            font-size: 13px;
+            font-size: 12px;
         }
         i.icon-green{
             color: #1b5e20;

@@ -94,30 +94,48 @@
                 dataType: "json",
                 success: function (response) {
                     deb40 = response.result[0];
+                    if (deb40 == undefined) {
+                        debCant40 = 0;
+                        debImport40 = 0;
+                        debCob40 = 0;
+                    }else{
+                        debCant40 = deb40.Cantidad;
+                        debImport40 = deb40.Importe;
+                        debCob40 = deb40.Cobrado;
+                    }
                     console.log(deb40);
-                    debCant40 = deb40.Cantidad;
-                    debImport40 = deb40.Importe;
-                    debCob40 = deb40.Cobrado;
                     $.ajax({
                         type: "GET",
                         url: "http://localhost/mutualasn-api/public/movements/resume/all/40/all/2",
                         dataType: "json",
                         success: function (response) {
                             rech40 = response.result[0];
+                            if(rech40 == undefined){
+                                rechCant40 = 0;
+                                rechImport40 = 0;
+                                rechCob40 = 0;
+                            }else{
+                                rechCant40 = rech40.Cantidad;
+                                rechImport40 = rech40.Importe;
+                                rechCob40 = rech40.Cobrado;
+                            }
                             console.log(rech40);
-                            rechCant40 = rech40.Cantidad;
-                            rechImport40 = rech40.Importe;
-                            rechCob40 = rech40.Cobrado;
                             $.ajax({
                                 type: "GET",
                                 url: "http://localhost/mutualasn-api/public/movements/resume/all/40/all/3",
                                 dataType: "json",
                                 success: function (response) {
                                     noEnv40 = response.result[0];
+                                    if(noEnv40 == undefined){
+                                        noEnvCant40 = 0;
+                                        noEnvImport40 = 0;
+                                        noEnvCob40 = 0;                                        
+                                    }else{
+                                        noEnvCant40 = noEnv40.Cantidad;
+                                        noEnvImport40 = noEnv40.Importe;
+                                        noEnvCob40 = noEnv40.Cobrado;
+                                    }
                                     console.log(noEnv40);
-                                    noEnvCant40 = noEnv40.Cantidad;
-                                    noEnvImport40 = noEnv40.Importe;
-                                    noEnvCob40 = noEnv40.Cobrado;
                                     drawData40(debCant40, rechCant40, noEnvCant40, 'cant-40');
                                         $("#type").change(function(){
                                             if (selectedType == "1") {
@@ -141,30 +159,48 @@
                 dataType: "json",
                 success: function (response) {
                     deb59 = response.result[0];
+                    if(deb59 == undefined){
+                        debCant59 = 0;
+                        debImport59 = 0;
+                        debCob59 = 0;
+                    }else{
+                        debCant59 = deb59.Cantidad;
+                        debImport59 = deb59.Importe;
+                        debCob59 = deb59.Cobrado;
+                    }
                     console.log(deb59);
-                    debCant59 = deb59.Cantidad;
-                    debImport59 = deb59.Importe;
-                    debCob59 = deb59.Cobrado;
                     $.ajax({
                         type: "GET",
                         url: "http://localhost/mutualasn-api/public/movements/resume/all/59/all/2",
                         dataType: "json",
                         success: function (response) {
                             rech59 = response.result[0];
+                            if (rech59 == undefined) {
+                                rechCant59 = 0;
+                                rechImport59 = 0;
+                                rechCob59 = 0;
+                            }else{
+                                rechCant59 = rech59.Cantidad;
+                                rechImport59 = rech59.Importe;
+                                rechCob59 = rech59.Cobrado;
+                            }
                             console.log(rech59);
-                            rechCant59 = rech59.Cantidad;
-                            rechImport59 = rech59.Importe;
-                            rechCob59 = rech59.Cobrado;
                             $.ajax({
                                 type: "GET",
                                 url: "http://localhost/mutualasn-api/public/movements/resume/all/59/all/3",
                                 dataType: "json",
                                 success: function (response) {
                                     noEnv59 = response.result[0];
+                                    if(noEnv59 == undefined){
+                                        noEnvCant59 = 0;
+                                        noEnvImport59 = 0;
+                                        noEnvCob59 = 0;
+                                    }else{
+                                        noEnvCant59 = noEnv59.Cantidad;
+                                        noEnvImport59 = noEnv59.Importe;
+                                        noEnvCob59 = noEnv59.Cobrado;
+                                    }
                                     console.log(noEnv59);
-                                    noEnvCant59 = noEnv59.Cantidad;
-                                    noEnvImport59 = noEnv59.Importe;
-                                    noEnvCob59 = noEnv59.Cobrado;
                                     drawData59(debCant59, rechCant59, noEnvCant59, 'cant-59');
                                         $("#type").change(function(){
                                             if (selectedType == "1") {

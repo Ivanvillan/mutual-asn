@@ -185,11 +185,11 @@
                     <td>${row[i].Alta}</td> 
                     </tr>`
                     );
-                    result.rows[i] = {"rep": row[i].Rep ?? '0', "solicitud": row[i].Solicitud ?? '0', "periodo": row[i].Periodo ?? '0',
-                        "nombre": row[i].Nombre ?? '0', "legajo": leg ?? '0', "alta": row[i].Alta ?? '0', "saldo": row[i].Saldo ?? '0',
-                        "importe": row[i].Importe ?? '0', "cobrado": row[i].Cobrado ?? '0', "cuotas": row[i].Cuotas ?? '0',
-                        "cuotaspendientes": row[i].CuotasPendientes ?? '0', "conveniocobro": row[i].ConvenioCobro ?? '0', 
-                        "dni": row[i].DNI ?? '0', "cbu": row[i].CBU ?? '0', "rech": row[i].Rech ?? '0'
+                    result.rows[i] = {"rep": row[i].Rep ?? 0, "solicitud": row[i].Solicitud ?? 0, "periodo": row[i].Periodo ?? 0,
+                        "nombre": row[i].Nombre ?? 0, "legajo": leg ?? 0, "alta": row[i].Alta ?? 0, "saldo": row[i].Saldo ?? 0,
+                        "importe": row[i].Importe ?? 0, "cobrado": row[i].Cobrado ?? 0, "cuotas": row[i].Cuotas ?? 0,
+                        "cuotaspendientes": row[i].CuotasPendientes ?? 0, "conveniocobro": row[i].ConvenioCobro ?? 0, 
+                        "dni": row[i].DNI ?? 0, "cbu": row[i].CBU ?? 0, "rech": row[i].Rech ?? 0
                     };
                 }    
                 $('table>tbody').html(html.join(''));
