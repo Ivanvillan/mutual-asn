@@ -417,7 +417,7 @@
                     var element = $(this)[0].parentElement.parentElement;
                     paramMov = $(element).attr('sellerID')
                     getMovement();
-                    $('.container').css( { "margin-left" : "265px" } );
+                    $('.container').css( { "margin-left" : "275px" } );
                     $('.table-seller').addClass('hide');
                     $('.searchSeller').addClass('hide');
                     $('.new-seller').addClass('hide');

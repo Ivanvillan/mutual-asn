@@ -7,7 +7,7 @@
     <title>Mutual ASN | Informes</title>
     <style>
         .container{
-            margin-left: 255px !important;
+            margin-left: 265px !important;
         }
         .margin-b{
             margin-top: 30px !important;
