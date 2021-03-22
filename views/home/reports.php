@@ -109,6 +109,7 @@
                                 <th>Rep.</th>
                                 <th>Prod.</th>
                                 <th>Cobrado</th>
+                                <th>10%</th>
                                 <th>Conv.Cobro</th>
                                 <th>Cuotas</th>
                                 <th>C.Pend.</th>
@@ -283,6 +284,9 @@
                     let row = response.result;
                     let html = [];
                     for (let i=0; i < row.length; i++){
+                    var porcCob = row[i].Cobrado;
+                    var valPorcCob = porcCob * 0.1;
+                    var valPorCobNum = valPorcCob + '.00';
                     html.push(
                     `<tr class="content">
                     <td>${row[i].Periodo}</td> 
@@ -294,6 +298,7 @@
                     <td>${row[i].Denominacion}</td>  
                     <td>${row[i].Descripcion}</td>  
                     <td>${row[i].Cobrado}</td>  
+                    <td>${valPorCobNum}</td>  
                     <td>${row[i].ConvenioCobro}</td>  
                     <td>${row[i].Cuotas}</td>  
                     <td>${row[i].CuotasPendientes}</td>  

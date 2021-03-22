@@ -186,6 +186,14 @@
                     if (sal != undefined){ 
                         sal = sal.replace(/,/g, ""); 
                     };
+                    var imp = row[i].Importe;
+                    if (imp != undefined){ 
+                        imp = imp.replace(/,/g, ""); 
+                    };
+                    var cob = row[i].Cobrado;
+                    if (cob != undefined){ 
+                        cob = cob.replace(/,/g, ""); 
+                    };
                     html.push(
                     `<tr>
                     <td>${row[i].Nombre}</td> 
@@ -197,7 +205,7 @@
                     );
                     result.rows[i] = {"rep": row[i].Rep ?? "0", "solicitud": row[i].Solicitud ?? "0", "periodo": row[i].Periodo ?? "0",
                         "nombre": row[i].Nombre ?? "0", "legajo": leg ?? "0", "alta": row[i].Alta ?? "0", "saldo": sal ?? "0",
-                        "importe": row[i].Importe ?? "0", "cobrado": row[i].Cobrado ?? "0", "cuotas": row[i].Cuotas ?? "0",
+                        "importe": imp ?? "0", "cobrado": cob ?? "0", "cuotas": row[i].Cuotas ?? "0",
                         "cuotaspendientes": row[i].CuotasPendientes ?? "0", "conveniocobro": row[i].ConvenioCobro ?? "0", 
                         "dni": row[i].DNI ?? "0", "cbu": row[i].CBU ?? "0", "rech": row[i].Rech ?? "0"
                     };

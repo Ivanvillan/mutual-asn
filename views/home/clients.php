@@ -216,7 +216,7 @@
         <!-- MODAL MOVIMIENTOS -->
         <div id="movement-modal" class="modal">
             <div class="modal-content">
-                <div class="row">
+                <div class="row row-movClient">
                     <h5 class="col s11 m11 l11 margin-h5">MOVIMIENTOS DEL CLIENTE</h5>
                     <a class="col s1 m1 l1 right modal-close margin-a"><i class="material-icons" style="color: #000 !important;">close</i></a>
                     <div class="col s12 m12 l12 divider" style="margin-bottom: 20px !important;"></div>
@@ -228,6 +228,7 @@
                                     <th>Saldo</th>
                                     <th>Importe</th>
                                     <th>Cobrado</th>
+                                    <th>10%</th>
                                     <th>Cuotas</th>
                                     <th>Cuot/Pend.</th>
                                     <th>Conv/Cobro</th>
@@ -235,11 +236,36 @@
                                     <th>Prod.</th>
                                     <th>Rech.</th>
                                     <th>Tipo</th>
+                                    <th>Editar</th>
                                 </tr>
                             </thead>
                             <tbody>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+                <div class="row row-editCob hide">
+                    <a href="#" class="movClient-show col s1 m1 l1 margin-a"><i class="material-icons prefix" style="color: #000 !important;">arrow_back</i></a>
+                    <h5 class="col s10 m10 l10 margin-h5">EDITAR COBRO</h5>
+                    <a class="col s1 m1 l1 right modal-close margin-a"><i class="material-icons" style="color: #000 !important;">close</i></a>
+                    <div class="col s12 m12 l12 divider" style="margin-bottom: 20px !important;"></div>
+                    <div class="col s12 m8 l8 offset-m2 offset-l2 input-field">
+                        <input type="text" name="value-cob" id="value-cob"></input>
+                        <label for="value-cob">Nuevo valor</label>
+                        <div class="modal-footer col s12 m12 l12" style="padding-top: 20px !important;">
+                            <a href="#!" class="btn right sendEditCob blue darken-2">Aceptar</a>
+                            <div class="preloader-wrapper preloader-editCob hide small right active">
+                                <div class="spinner-layer spinner-red-only">
+                                <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                </div><div class="gap-patch">
+                                    <div class="circle"></div>
+                                </div><div class="circle-clipper right">
+                                    <div class="circle"></div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -305,6 +331,7 @@
         // Variables
          var paramLeg;
          var paramObs;
+         var movID;
          var selectedDenom;
          var selectedSeller;
          var selectedState;
@@ -575,12 +602,16 @@
                     }else {
                         type = type + ' ' + `<i class="material-icons icon-red tiny">clear</i>`
                     }
+                    var porcCob = row[i].Cobrado;
+                    var valPorcCob = porcCob * 0.1;
+                    var valPorCobNum = valPorcCob + '.00';
                     html.push(
-                    `<tr">
+                    `<tr movID="${row[i].CodMovimiento}">
                     <td>${row[i].Periodo}</td> 
                     <td>${row[i].Saldo}</td> 
                     <td>${row[i].Importe}</td> 
                     <td>${row[i].Cobrado}</td> 
+                    <td>${valPorCobNum}</td> 
                     <td>${row[i].Cuotas}</td>  
                     <td>${row[i].CuotasPendientes}</td>  
                     <td>${row[i].ConvenioCobro}</td>  
@@ -588,10 +619,18 @@
                     <td>${row[i].Descripcion}</td>  
                     <td>${row[i].Motivo}</td>  
                     <td>${type}</td>  
+                    <td><a href="#" class="btn yellow darken-4 edit-cob"><i class="material-icons">edit</i></a></td>  
                     </tr>`
                     );
                 }  
                 $('.client-movements>tbody').html(html.join(''));
+                $('.edit-cob').click(function (e) { 
+                    e.preventDefault();
+                    $('.row-movClient').addClass('hide');
+                    $('.row-editCob').removeClass('hide');
+                    var element = $(this)[0].parentElement.parentElement;
+                    movID = $(element).attr('movID');
+                });
                 }
             });
         }
@@ -732,6 +771,39 @@
             });
         }
         // 
+        $('.sendEditCob').click(function (e) { 
+            e.preventDefault();
+            $('.sendEditCob').addClass('hide');
+            $('.preloader-editCob').removeClass('hide');
+            var valueCob = $("input[name='value-cob']").val();
+            console.log(valueCob);
+            console.log(paramLeg);
+            console.log(movID);
+            $.ajax({
+                type: "POST",
+                url: "http://localhost/mutualasn-api/public/movements/edit",
+                data: {
+                    "legajo": paramLeg,
+                    "cobrado": valueCob,    
+                    "id": movID    
+                },
+                dataType: "json",
+                success: function (response) {
+                    $('.sendEditCob').removeClass('hide');
+                    $('.preloader-editCob').addClass('hide');
+                    M.toast({html: '¡Valor actualizado!'});
+                    $("input[name='value-cob']").val('');
+                    getMovements(paramLeg);
+                },
+                error: function(){
+                    M.toast({html: 'Error al actualizar valor'});
+                    $('.sendEditCob').removeClass('hide');
+                    $('.preloader-editCob').addClass('hide');
+                }
+            });
+            
+        });
+        // 
         function search(){
             $("#search").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
@@ -760,6 +832,11 @@
             e.preventDefault();
             $('.table-obs').addClass('hide');
             $('.form-obs').removeClass('hide');
+        });
+        $('.movClient-show').click(function (e) { 
+            e.preventDefault();
+            $('.row-editCob').addClass('hide');
+            $('.row-movClient').removeClass('hide');
         });
     </script>
 </body>
